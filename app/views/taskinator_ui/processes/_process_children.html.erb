@@ -1,0 +1,43 @@
+<% if depth > 0 && process.is_a?(Taskinator::Process) %>
+  <% if process.is_a?(Taskinator::Process::Concurrent) %>
+    <% groups = process.tasks.each.to_a.map { |task| TaskinatorUi::ProcessDecorator.new(task) }.group_by { |task| [task.class_name, task.method, task.job] }.values %>
+    <% groups.each do |group| %>
+      <% if group.size > 1 %>
+        <li class="list-group-item">
+          <div style="margin-left: <%= (indent + 1) * 10 %>px">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#group<%= group.first.uuid.gsub(':', '') %>" aria-expanded="false" aria-controls="collapseExample">
+                  +
+                </button>
+                <b>Group</b>
+                <%= group.first.title %>
+              </div>
+
+              <div class="col text-end">
+
+              </div>
+            </div>
+          </div>
+        </li>
+        <div class="collapse" id="group<%= group.first.uuid.gsub(':', '') %>">
+          <% group.each do |task| %>
+            <%= render partial: 'process_details', locals: { process: task, indent: indent + 2, depth: depth - 1 } %>
+          <% end %>
+        </div>
+      <% else %>
+        <%= render partial: 'process_details', locals: { process: group.first, indent: indent + 1, depth: depth - 1 } %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= process.tasks.each do |task| %>
+      <%= render partial: 'process_details', locals: { process: task, indent: indent + 1, depth: depth - 1 } %>
+    <% end %>
+  <% end %>
+<% else %>
+  <li class="list-group-item text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </li>
+<% end %>

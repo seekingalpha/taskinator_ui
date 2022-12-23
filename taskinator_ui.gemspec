@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 5.0.0"
+  spec.add_dependency "taskinator", ">= 0.5.0"
 end

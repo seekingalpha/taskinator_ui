@@ -1,0 +1,5 @@
+<h3><%= @process.definition.name %> <%= @process.uuid %></h3>
+
+<ul class="list-group">
+  <%= render partial: 'process_details', locals: { process: @process, indent: 0, depth: 0 } %>
+</ul>

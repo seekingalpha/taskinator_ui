@@ -1,0 +1,30 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">State</th>
+    <th scope="col">Progress</th>
+    <th scope="col">Created at</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @processes.each do |process| %>
+  <% decorator = TaskinatorUi::ProcessDecorator.new(process) %>
+  <tr>
+    <td><%= link_to process.definition.name, process_path(id: process.uuid) %></td>
+    <td>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: <%= process.percentage_completed %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </td>
+    <td><%= decorator.status_badge %></td>
+    <td><%= process.created_at %></td>
+    <td class="text-end">
+      <%= form_tag(process_path(id: process.uuid), method: :delete) do %>
+      <%= submit_tag 'Delete', class: 'btn btn-sm btn-danger' %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>

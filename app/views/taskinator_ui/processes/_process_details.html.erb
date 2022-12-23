@@ -1,0 +1,54 @@
+<% process = process.__getobj__ if process.is_a?(Taskinator::Persistence::LazyLoader) %>
+
+<% if process.instance_of?(Taskinator::Task::SubProcess) %>
+  <%= render partial: 'process_details', locals: { process: process.sub_process, indent: indent, depth: depth } %>
+<% else %>
+  <% decorator = TaskinatorUi::ProcessDecorator.new(process) %>
+  <li class="list-group-item">
+    <div style="margin-left: <%= indent * 10 %>px">
+      <div class="row">
+        <div class="col">
+          <% if decorator.__getobj__.class.in?([Taskinator::Task::Step, Taskinator::Task::Job]) %>
+            <button class="btn btn-outline-secondary btn-sm disabled">x</button>
+          <% else %>
+            <button
+              <% if depth.zero? %>
+              onclick="loadProcessChildren('<%= process.uuid %>', <%= indent %>)"
+              <% end %>
+              class="btn btn-outline-secondary btn-sm"
+              type="button" data-bs-toggle="collapse"
+              data-bs-target="#children<%= process.uuid.gsub(':', '') %>"
+              aria-expanded="false"
+              aria-controls="collapseExample">+</button>
+          <% end %>
+          <%= decorator.title %>
+        </div>
+
+        <div class="col text-end">
+          <%= decorator.status_badge %>
+          <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= process.uuid.gsub(':', '') %>" aria-expanded="false" aria-controls="collapseExample">
+            Details
+          </button>
+        </div>
+      </div>
+
+      <div class="collapse" id="collapse<%= process.uuid.gsub(':', '') %>">
+        <table class="table table-stripped">
+          <tr>
+            <td>uuid:</td>
+            <td><%= process.uuid %></td>
+          </tr>
+          <% if process.respond_to?(:args) %>
+            <tr>
+              <td>args:</td>
+              <td><%= process.args %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </li>
+  <div class="collapse" id="children<%= process.uuid.gsub(':', '') %>">
+    <%= render partial: 'process_children', locals: { process: process, indent: indent, depth: depth } %>
+  </div>
+<% end %>
