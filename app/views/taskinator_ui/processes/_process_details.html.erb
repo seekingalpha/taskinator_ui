@@ -17,16 +17,19 @@
               <% end %>
               class="btn btn-outline-secondary btn-sm"
               type="button" data-bs-toggle="collapse"
-              data-bs-target="#children<%= process.uuid.gsub(':', '') %>"
+              data-bs-target="#children<%= decorator.html_uuid %>"
               aria-expanded="false"
               aria-controls="collapseExample">+</button>
+          <% end %>
+          <% if decorator.current_state.in?([:initial, :failed]) %>
+            <input class="form-check-input js-indent-<%= indent %>" type="checkbox" name="uuids[]" value="<%= decorator.uuid %>" id="checkbox<%= decorator.html_uuid %>">
           <% end %>
           <%= decorator.title %>
         </div>
 
         <div class="col text-end">
           <%= decorator.status_badge %>
-          <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= process.uuid.gsub(':', '') %>" aria-expanded="false" aria-controls="collapseExample">
+          <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= decorator.html_uuid %>" aria-expanded="false" aria-controls="collapseExample">
             Details
           </button>
         </div>
@@ -37,6 +40,14 @@
           <tr>
             <td>uuid:</td>
             <td><%= process.uuid %></td>
+          </tr>
+          <tr>
+            <td>pending:</td>
+            <td><%= decorator.pending_tasks || 0 %> tasks</td>
+          </tr>
+          <tr>
+            <td>definition:</td>
+            <td><%= process.definition %></td>
           </tr>
           <% if process.respond_to?(:args) %>
             <tr>

@@ -10,6 +10,7 @@
                 <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#group<%= group.first.uuid.gsub(':', '') %>" aria-expanded="false" aria-controls="collapseExample">
                   +
                 </button>
+                <input class="form-check-input" type="checkbox" id="select-group<%= group.first.uuid.gsub(':', '') %>" onchange="selectGroup('<%= group.first.uuid.gsub(':', '') %>', <%= indent %>)">
                 <b>Group</b>
                 <%= group.first.title %>
               </div>

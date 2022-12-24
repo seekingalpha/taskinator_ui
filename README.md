@@ -1,3 +1,5 @@
+config.middleware.use Rack::MethodOverride
+
 # TaskinatorUi
 Short description and motivation.
 

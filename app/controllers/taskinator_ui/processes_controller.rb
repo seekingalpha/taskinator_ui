@@ -10,6 +10,14 @@ module TaskinatorUi
       @process = Taskinator::Process.fetch(params[:id])
     end
 
+    def run
+      uuids = params[:uuids].to_set
+      process = Taskinator::Process.fetch(params[:process_id])
+      PartialRunner.new(process, uuids: uuids).call
+
+      redirect_to action: :show, id: params[:process_id]
+    end
+
     def children
       @process = Taskinator::Process.fetch(params[:process_id])
     end

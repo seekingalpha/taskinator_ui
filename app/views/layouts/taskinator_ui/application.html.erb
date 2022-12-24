@@ -16,6 +16,12 @@
         $('#children'+uuid.replaceAll(':', '')).load('<%= processes_path %>/' + uuid + '/children?indent=' + indent)
       }
     }
+    function selectGroup(uuid, indent) {
+      let checked = $('#select-group'+uuid)[0].checked;
+      $('#group'+uuid+' input.js-indent-' + (indent + 2)).each(function(i, el){
+        el.checked = checked
+      })
+    }
   </script>
 </head>
 <body>

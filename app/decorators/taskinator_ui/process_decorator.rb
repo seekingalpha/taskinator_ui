@@ -21,14 +21,24 @@ module TaskinatorUi
     def title
       case __getobj__
       when Taskinator::Task::Step
-        "#{definition}#<b>#{method}</b> (task)"
+        "Task <b>#{method}</b>"
       when Taskinator::Task::Job
-        "<b>#{job}</b> (job)"
+        "Job <b>#{job}</b>"
       when Taskinator::Process
         "#{__getobj__.class.name.split('::').last}"
       else
         __getobj__.inspect
       end.html_safe
+    end
+
+    def html_uuid
+      uuid.gsub(':', '').html_safe
+    end
+
+    def pending_tasks
+      @pending_tasks ||= Taskinator.redis do |conn|
+        conn.get("#{key}.pending")
+      end
     end
 
     def status_badge

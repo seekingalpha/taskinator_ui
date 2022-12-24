@@ -1,5 +1,10 @@
 <h3><%= @process.definition.name %> <%= @process.uuid %></h3>
 
-<ul class="list-group">
-  <%= render partial: 'process_details', locals: { process: @process, indent: 0, depth: 0 } %>
-</ul>
+<%= form_tag(process_run_path(process_id: @process.uuid)) do %>
+  <ul class="list-group">
+    <%= render partial: 'process_details', locals: { process: @process, indent: 0, depth: 0 } %>
+  </ul>
+  <div class="text-end mt-3">
+    <%= submit_tag 'Run from the selected tasks', class: 'btn btn-primary' %>
+  </div>
+<% end %>
