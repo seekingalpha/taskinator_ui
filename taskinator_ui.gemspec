@@ -4,15 +4,15 @@ Gem::Specification.new do |spec|
   spec.name        = "taskinator_ui"
   spec.version     = TaskinatorUi::VERSION
   spec.authors     = ["Bogdan Guban"]
-  spec.email       = ["bogdan@seekingalpha.com"]
-  spec.homepage    = "https://test.com/bla"
-  spec.summary     = "Summary of TaskinatorUi."
-  spec.description = "Description of TaskinatorUi."
+  spec.email       = ["biguban@gmail.com"]
+  spec.homepage    = "https://github.com/bguban/taskinator_ui"
+  spec.summary     = "Web UI for taskinator gem."
+  spec.description = "Web UI for taskinator gem."
     spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
