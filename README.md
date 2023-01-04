@@ -26,6 +26,22 @@ mount TaskinatorUi::Engine, at: '/taskinator'
 
 Run `rails server` and navigate to `http://localhost:3000/taskinator/`
 
+## HTTP Basic Auth
+
+To add basic auth add the line into initializer:
+
+```ruby
+# config/initializers/taskinator.rb
+
+TaskinatorUi.http_basic_auth = ->(user, password) { user == 'username' && password == 'password' }
+```
+
+You can use your database if needed: 
+
+```ruby
+TaskinatorUi.http_basic_auth = ->(email, password) { User.admin.find_by(email: email)&.authenticate(password) }
+```
+
 ## Known issues
 
 If you use Rails in API only mode it can happen that you have `Rack::MethodOverride` middleware disabled.
