@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.version     = TaskinatorUi::VERSION
   spec.authors     = ["Bogdan Guban"]
   spec.email       = ["biguban@gmail.com"]
-  spec.homepage    = "https://github.com/bguban/taskinator_ui"
+  spec.homepage    = "https://github.com/seekingalpha/taskinator_ui"
   spec.summary     = "Web UI for taskinator gem."
   spec.description = "Web UI for taskinator gem."
     spec.license     = "MIT"
